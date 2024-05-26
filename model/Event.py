@@ -17,7 +17,7 @@ def get_all_events() -> list[Event] | str:
     try:
         # sql request
         cursor.execute("""
-            SELECT `event_id`, `name`, `description`, `date`
+            SELECT `id`, `name`, `description`, `date`
             FROM `event`;
         """)
         event_datas = cursor.fetchall()
@@ -43,7 +43,7 @@ def get_event(id: int) -> Event | str:
         cursor.execute("""
             SELECT `name`, `description`, `date`
             FROM `event`
-            WHERE `event_id` = ?;
+            WHERE `id` = ?;
         """, (id,))
         event_datas = cursor.fetchone()
         if not event_datas:
@@ -71,7 +71,7 @@ def get_event_by_name(name: str) -> Event | str:
     try:
         # sql request
         cursor.execute("""
-            SELECT `event_id`, `description`, `date`
+            SELECT `id`, `description`, `date`
             FROM `event`
             WHERE `name` = ?;
         """, (name,))
@@ -94,8 +94,10 @@ def get_event_by_name(name: str) -> Event | str:
         connection.close()
 
 
-# insert the event and return the id
 def insert_event(name: str, description: str, date: int) -> int | str:
+    """
+    insert the event and return it
+    """
     connection = sqlite3.connect(datas.db_name)
     cursor = connection.cursor()
 
@@ -126,7 +128,7 @@ def delete_event(id: int) -> bool | str:
         # sql request
         sql = """
             DELETE FROM `event`
-            WHERE `event_id` = ?;
+            WHERE `id` = ?;
         """
         sql_datas = (id,)
         cursor.execute(sql, sql_datas)
@@ -153,7 +155,7 @@ def update_event(id: int, name: str, description: str, date: int) -> int | str:
                 `name` = ?,
                 `description` = ?,
                 `date` = ?
-            WHERE `event_id` = ?;
+            WHERE `id` = ?;
         """
         sql_datas = (name, description, date, id)
         cursor.execute(sql, sql_datas)
