@@ -118,5 +118,51 @@ def insert_event(name: str, description: str, date: int) -> int | str:
         connection.close()
 
 
-if __name__ == "__main__":
-    print(get_all_events())
+def delete_event(id: int) -> bool | str:
+    connection = sqlite3.connect(datas.db_name)
+    cursor = connection.cursor()
+
+    try:
+        # sql request
+        sql = """
+            DELETE FROM `event`
+            WHERE `event_id` = ?;
+        """
+        sql_datas = (id,)
+        cursor.execute(sql, sql_datas)
+        connection.commit()
+
+        return True
+    except Exception as error:
+        print(error)
+        return f'{error}'
+    finally:
+        cursor.close()
+        connection.close()
+
+
+def update_event(id: int, name: str, description: str, date: int) -> int | str:
+    connection = sqlite3.connect(datas.db_name)
+    cursor = connection.cursor()
+
+    try:
+        # sql request
+        sql = """
+            UPDATE `event`
+            SET
+                `name` = ?,
+                `description` = ?,
+                `date` = ?
+            WHERE `event_id` = ?;
+        """
+        sql_datas = (name, description, date, id)
+        cursor.execute(sql, sql_datas)
+        connection.commit()
+
+        return get_event_by_name(name)
+    except Exception as error:
+        print(error)
+        return f'{error}'
+    finally:
+        cursor.close()
+        connection.close()
