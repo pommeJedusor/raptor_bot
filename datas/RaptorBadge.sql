@@ -1,8 +1,9 @@
 DROP TABLE IF EXISTS `raptor_badge`;
 
 CREATE TABLE `raptor_badge` (
-  `raptor_badge_id` INTEGER PRIMARY KEY, 
+  `id` INTEGER PRIMARY KEY, 
   `description` TEXT NOT NULL, 
-  `owner_id` INTEGER,
-  `date` INTEGER DEFAULT (UNIXEPOCH())
+  `owner_id` INTEGER NOT NULL,
+  `event_id` INTEGER NOT NULL,
+  `date` INTEGER DEFAULT (UNIXEPOCH()) NOT NULL
 );
