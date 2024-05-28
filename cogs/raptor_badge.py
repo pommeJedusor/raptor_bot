@@ -1,8 +1,10 @@
+import datetime
+
 import discord
 from discord import app_commands
 from discord.ext import commands
 
-from model.RaptorBadge import add_raptorbadge
+from model.RaptorBadge import add_raptorbadge, get_user_raptorbadge
 from model.Event import get_event_by_name
 
 
@@ -23,6 +25,21 @@ class RaptorBadgeCog(commands.Cog):
             return
 
         await interaction.response.send_message("insertion réussis!")
+
+    @app_commands.command(name="voir_raptor_badges", description="permet de voir tous les raptor badges d'un joueur")
+    async def see_raptor_badges(self, interaction: discord.Interaction, joueur: discord.Member):
+        raptor_badges = get_user_raptorbadge(joueur.id)
+        if isinstance(raptor_badges, str):
+            await interaction.response.send_message(f"erreur: ```python\n{raptor_badges}\n```")
+            return
+        if not raptor_badges:
+            await interaction.response.send_message("le joueur n'as pas de raptor badges pour le moment")
+
+        content = ""
+        for badge in raptor_badges:
+            date = datetime.datetime.fromtimestamp(badge.date)
+            content += f"```event: {badge.event.name}\ndescription: {badge.description}\ndate: {date}```"
+        await interaction.response.send_message(content)
 
 
 """
