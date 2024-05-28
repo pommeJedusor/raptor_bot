@@ -42,49 +42,5 @@ class RaptorBadgeCog(commands.Cog):
         await interaction.response.send_message(content)
 
 
-"""
-    @app_commands.command(name="voir_les_evenements", description="permet de voir tous les évènements")
-    async def see_all_events(self, interaction: discord.Interaction):
-        result = get_all_events()
-        if isinstance(result, str):
-            await interaction.response.send_message(f"erreur: ```python\n{result}\n```")
-            return
-
-        content = ""
-        for event in result:
-            content += f"```nom: {event.name}\ndescription: {event.description}\ndate: {event.date}```"
-
-        await interaction.response.send_message(content)
-
-    @app_commands.command(name="modifier_un_evenement", description="permet de modifier un évènement")
-    async def edit_event(self, interaction: discord.Interaction, nom_actuel: str, nom: str = None, description: str = None, date: str = None):
-        result = get_event_by_name(nom_actuel)
-        if isinstance(result, str):
-            await interaction.response.send_message(f"erreur: ```python\n{result}\n```")
-            return
-
-        result = update_event(result.id, nom or result.name, description or result.description, date or result.date)
-        if isinstance(result, str):
-            await interaction.response.send_message(f"erreur: ```python\n{result}\n```")
-            return
-
-        await interaction.response.send_message("message modifié avec succès")
-
-    @app_commands.command(name="supprimer_un_evenement", description="permet de supprimer un évènement")
-    async def delete_event(self, interaction: discord.Interaction, nom: str):
-        result = get_event_by_name(nom)
-        if isinstance(result, str):
-            await interaction.response.send_message(f"erreur: ```python\n{result}\n```")
-            return
-
-        result = delete_event(result.id)
-        if isinstance(result, str):
-            await interaction.response.send_message(f"erreur: ```python\n{result}\n```")
-            return
-
-        await interaction.response.send_message("message supprimé avec succès")
-"""
-
-
 async def setup(bot):
     await bot.add_cog(RaptorBadgeCog(bot))
