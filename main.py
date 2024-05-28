@@ -5,6 +5,7 @@ import datas as Datas
 
 
 cogs = [
+    "event"
 ]
 
 
