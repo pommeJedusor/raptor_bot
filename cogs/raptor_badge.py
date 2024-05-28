@@ -2,22 +2,30 @@ import discord
 from discord import app_commands
 from discord.ext import commands
 
-from model.Event import insert_event, get_all_events, get_event_by_name, update_event, delete_event
+from model.RaptorBadge import add_raptorbadge
+from model.Event import get_event_by_name
 
 
-class EventCog(commands.Cog):
+class RaptorBadgeCog(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @app_commands.command(name="creer_un_evenement", description="permet de créer un évènement")
-    async def create_event(self, interaction: discord.Interaction, nom: str, description: str, date: str):
-        result = insert_event(nom, description, date)
-        if isinstance(result, str):
-            await interaction.response.send_message(f"erreur: ```python\n{result}\n```")
+    @app_commands.command(name="donner_raptor_badge", description="permet de donner un raptor badge à un joueur")
+    async def add_raptor_badge(self, interaction: discord.Interaction, joueur: discord.Member, description: str, nom_evenement: str):
+        event = get_event_by_name(nom_evenement)
+        if isinstance(event, str):
+            await interaction.response.send_message(f"erreur: ```python\n{event}\n```")
+            return
+
+        raptor_badge = add_raptorbadge(event.id, joueur.id, description)
+        if isinstance(raptor_badge, str):
+            await interaction.response.send_message(f"erreur: ```python\n{raptor_badge}\n```")
             return
 
         await interaction.response.send_message("insertion réussis!")
 
+
+"""
     @app_commands.command(name="voir_les_evenements", description="permet de voir tous les évènements")
     async def see_all_events(self, interaction: discord.Interaction):
         result = get_all_events()
@@ -28,10 +36,6 @@ class EventCog(commands.Cog):
         content = ""
         for event in result:
             content += f"```nom: {event.name}\ndescription: {event.description}\ndate: {event.date}```"
-
-        if not content:
-            await interaction.response.send_message("pas encore d'évènements pour le moment")
-            return
 
         await interaction.response.send_message(content)
 
@@ -62,7 +66,8 @@ class EventCog(commands.Cog):
             return
 
         await interaction.response.send_message("message supprimé avec succès")
+"""
 
 
 async def setup(bot):
-    await bot.add_cog(EventCog(bot))
+    await bot.add_cog(RaptorBadgeCog(bot))

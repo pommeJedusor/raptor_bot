@@ -5,7 +5,8 @@ import datas as Datas
 
 
 cogs = [
-    "event"
+    "event",
+    "raptor_badge"
 ]
 
 

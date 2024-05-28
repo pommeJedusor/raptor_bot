@@ -94,7 +94,7 @@ def get_event_by_name(name: str) -> Event | str:
         connection.close()
 
 
-def insert_event(name: str, description: str, date: str) -> int | str:
+def insert_event(name: str, description: str, date: str) -> Event | str:
     """
     insert the event and return it
     """
