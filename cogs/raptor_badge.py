@@ -16,29 +16,29 @@ class RaptorBadgeCog(commands.Cog):
     async def add_raptor_badge(self, interaction: discord.Interaction, joueur: discord.Member, description: str, nom_evenement: str):
         event = get_event_by_name(nom_evenement)
         if isinstance(event, str):
-            await interaction.response.send_message(f"erreur: ```python\n{event}\n```")
+            await interaction.response.send_message(f"> erreur: \n> {event}")
             return
 
         raptor_badge = add_raptorbadge(event.id, joueur.id, description)
         if isinstance(raptor_badge, str):
-            await interaction.response.send_message(f"erreur: ```python\n{raptor_badge}\n```")
+            await interaction.response.send_message(f"> erreur: \n> {raptor_badge}")
             return
 
-        await interaction.response.send_message("insertion réussis!")
+        await interaction.response.send_message("> insertion réussis!")
 
     @app_commands.command(name="voir_raptor_badges", description="permet de voir tous les raptor badges d'un joueur")
     async def see_raptor_badges(self, interaction: discord.Interaction, joueur: discord.Member):
         raptor_badges = get_user_raptorbadge(joueur.id)
         if isinstance(raptor_badges, str):
-            await interaction.response.send_message(f"erreur: ```python\n{raptor_badges}\n```")
+            await interaction.response.send_message(f"> erreur: \n> {raptor_badges}")
             return
         if not raptor_badges:
-            await interaction.response.send_message("le joueur n'as pas de raptor badges pour le moment")
+            await interaction.response.send_message("> le joueur n'as pas de raptor badges pour le moment")
 
         content = ""
         for badge in raptor_badges:
             date = datetime.datetime.fromtimestamp(badge.date)
-            content += f"```event: {badge.event.name}\ndescription: {badge.description}\ndate: {date}```"
+            content += f"> event: {badge.event.name}\n> description: {badge.description}\n> date: {date}"
         await interaction.response.send_message(content)
 
 
