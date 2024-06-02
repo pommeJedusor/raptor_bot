@@ -1,25 +1,31 @@
 # Description des commandes
 
 ## joueurs
+### Raptor Badge
+```
+/voir_mes_raptor_badges
+```
+permet de voir ses raptor badges de manière détaillée.
+
 
 ## modos
 ### Evenements
 ```
 /creer_un_evenement
 ```
-permet de creer un évenement en fournissant un nom, une description et une date(sous format ```02-06-2024```)
+permet de creer un évenement en fournissant un nom, une description et une date(sous format ```02-06-2024```).
 ```
 /voir_les_evenements
 ```
-permet de voir tous les évenements créés
+permet de voir tous les évenements créés.
 ```
 /modifier_un_evenement
 ```
-permet de modifier un évenement en lui fournissant son nom actuel (pour déterminer lequel modifier) ainsi qu'un nom, description, date(sous format ```02-06-2024```) chaqun de ces 3 champs étant optionnel (si pas précisé la valeur précédente est gardée)
+permet de modifier un évenement en lui fournissant son nom actuel (pour déterminer lequel modifier) ainsi qu'un nom, description, date(sous format ```02-06-2024```) chaqun de ces 3 champs étant optionnel (si pas précisé la valeur précédente est gardée).
 ```
 /supprimer_un_evenement
 ```
-permet de supprimer un évenement en lui fournissant son nom actuel (pour déterminer lequel modifier)
+permet de supprimer un évenement en lui fournissant son nom actuel (pour déterminer lequel modifier).
 
 ### Raptor Badge
 ```
