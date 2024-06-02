@@ -34,6 +34,23 @@ class RaptorBadgeCog(commands.Cog):
             return
         if not raptor_badges:
             await interaction.response.send_message("> le joueur n'as pas de raptor badges pour le moment")
+            return
+
+        content = ""
+        for badge in raptor_badges:
+            date = datetime.datetime.fromtimestamp(badge.date)
+            content += f"> event: {badge.event.name}\n> description: {badge.description}\n> date: {date}"
+        await interaction.response.send_message(content)
+
+    @app_commands.command(name="voir_mes_raptor_badges", description="permet de voir tous mes raptor badges")
+    async def see_my_raptor_badges(self, interaction: discord.Interaction):
+        raptor_badges = get_user_raptorbadge(interaction.user.id)
+        if isinstance(raptor_badges, str):
+            await interaction.response.send_message(f"> erreur: \n> {raptor_badges}")
+            return
+        if not raptor_badges:
+            await interaction.response.send_message("> tu n'as pas encore de raptor badges")
+            return
 
         content = ""
         for badge in raptor_badges:

@@ -5,5 +5,5 @@ CREATE TABLE `raptor_badge` (
   `description` TEXT NOT NULL, 
   `owner_id` INTEGER NOT NULL,
   `event_id` INTEGER NOT NULL,
-  `date` INTEGER DEFAULT (UNIXEPOCH()) NOT NULL
+  `date` INTEGER DEFAULT (STRFTIME('%s')) NOT NULL
 );
